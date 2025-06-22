@@ -1,0 +1,22 @@
+<svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="wavy" x="0" y="0" width="100%" height="100%">
+      <feTurbulence id="turbulence" type="turbulence" baseFrequency="0.01 0.02" numOctaves="2" result="turbulence"/>
+      <animate href="#turbulence" attributeName="baseFrequency" dur="12s" values="0.01 0.02; 0.03 0.06" repeatCount="indefinite" calcMode="linear" />
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <linearGradient id="paint0_linear_4_203" x1="7.5" y1="57" x2="241.5" y2="146" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C986EC" stop-opacity="0.8"/>
+      <stop offset="20%" stop-color="#A478E2" stop-opacity="0.7"/>
+      <stop offset="40%" stop-color="#755ED4" stop-opacity="0.6"/>
+      <stop offset="55%" stop-color="#4D48B9" stop-opacity="0.5"/>
+      <stop offset="70%" stop-color="#4C3ABF" stop-opacity="0.45"/>
+      <stop offset="85%" stop-color="#C64372" stop-opacity="0.5"/>
+      <stop offset="95%" stop-color="#F24974" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F63775" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="91" cy="91" r="91" fill="url(#paint0_linear_4_203)" fill-opacity="0.62" filter="url(#wavy)"/>
+</svg>
