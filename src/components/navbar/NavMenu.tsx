@@ -1,19 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import NavMenuSettings from "./NavMenuSettings";
+import { userRequestSettingsStore } from "@/store/userRequestSettingsStore"
+import { observer } from "mobx-react";
 
-const NavMenu = () => {
+const NavMenu = observer(() => {
     const [hidden, setHidden] = useState(false);
-    const [activeButton, setActiveButton] = useState(0);
+    const userSettings = userRequestSettingsStore;
 
     const buttons = [
         { id: 0, label: "Вопрос" },
         { id: 1, label: "Гадание" },
     ];
 
+    const handleButtonClick = (id: number) => userSettings.setAnswerType(id)
+    
     return (
         <div
-            className={`flex justify-center items-center h-[60px] ${hidden ? "bg-transparent" : "gap-10 py-3 bg-[#353435]"
+            className={`flex w-full justify-center items-center h-[60px] ${hidden ? "bg-transparent" : "gap-10 py-3 bg-[#353435]"
                 }`}
         >
             {!hidden && <NavMenuSettings />}
@@ -22,8 +26,8 @@ const NavMenu = () => {
                     {buttons.map(({ id, label }) => (
                         <Button
                             key={id}
-                            variant={activeButton === id ? "secondary" : "default"}
-                            onClick={() => setActiveButton(id)}
+                            variant={userSettings.AnswerType === id ? "secondary" : "default"}
+                            onClick={() => handleButtonClick(id)}
                         >
                             {label}
                         </Button>
@@ -38,6 +42,6 @@ const NavMenu = () => {
             />
         </div>
     );
-};
+})
 
 export default NavMenu;

@@ -26,7 +26,6 @@ import { Button } from "../ui/button"
 import { Calendar } from "../ui/calendar"
 import { useState } from "react"
 
-
 const NavMenuSettings = () => {
     const [open, setOpen] = useState(false)
     const [sex, setSex] = useState<string | undefined>(undefined)
