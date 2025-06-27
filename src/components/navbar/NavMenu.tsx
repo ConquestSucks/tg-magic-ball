@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import NavMenuSettings from "./NavMenuSettings";
 
 const NavMenu = () => {
     const [hidden, setHidden] = useState(false);
@@ -15,7 +16,7 @@ const NavMenu = () => {
             className={`flex justify-center items-center h-[60px] ${hidden ? "bg-transparent" : "gap-10 py-3 bg-[#353435]"
                 }`}
         >
-            {!hidden && <img src="navmenu-settings.svg" className="w-[24px] h-[24px]" />}
+            {!hidden && <NavMenuSettings />}
             {!hidden && (
                 <div className="flex gap-4">
                     {buttons.map(({ id, label }) => (
