@@ -13,6 +13,7 @@ export const TopBar = () => {
       ) : (
         <UserIcon className='w-6 h-6 text-white' />
       )}
+      <div className='w-8'></div>
     </div>
   )
 } 
