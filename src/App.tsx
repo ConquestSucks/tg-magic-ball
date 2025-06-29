@@ -2,7 +2,6 @@ import './App.css'
 import MagicBall from './components/magic-ball/MagicBall'
 import NavMenu from './components/navbar/NavMenu'
 import { observer } from "mobx-react"
-import { chatStorage } from './store/chatStorage'
 
 const App = observer(() => {
     return (
