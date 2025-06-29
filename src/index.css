@@ -134,3 +134,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes mac-bubble-in {
+    0%   { transform: perspective(600px) scale(0.2) translateY(20px); opacity: 0; }
+    60%  { transform: perspective(600px) scale(1.1) translateY(-6px); opacity: 1; }
+    80%  { transform: perspective(600px) scale(0.95) translateY(2px); }
+    100% { transform: perspective(600px) scale(1) translateY(0); }
+  }
+}

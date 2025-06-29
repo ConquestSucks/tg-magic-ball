@@ -3,35 +3,29 @@ import { useFrame } from '@react-three/fiber';
 import { useSpring, a } from '@react-spring/three';
 import { Mesh } from 'three';
 import type { EnergyMaterialImpl } from './materials/EnergyMaterial';
-import './materials/EnergyMaterial'; // Важно для extend
+import './materials/EnergyMaterial';
+import { chatStorage } from '../../store/chatStorage';
+import { observer } from 'mobx-react';
 
-export const AnimatedSphere = () => {
+export const AnimatedSphere = observer(() => {
     const meshRef = useRef<Mesh>(null!);
     const materialRef = useRef<EnergyMaterialImpl>(null!);
     const [hovered, setHover] = useState(false);
+    
 
     const [{ clickStrength }, clickApi] = useSpring(() => ({ clickStrength: 0 }));
     const [{ scale }, scaleApi] = useSpring(() => ({ scale: 1 }));
 
-
     const handleClick = async () => {
+        chatStorage.toggleChatStatus();
         clickApi.start({
             from: { clickStrength: 1 },
             to: { clickStrength: 0 },
             config: { mass: 1, tension: 280, friction: 20 },
         });
-
-        await scaleApi.start({
-            to: { scale: 1.1 },
-            config: { mass: 1, tension: 180, friction: 12 },
-        });
-
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        await scaleApi.start({
-            to: { scale: 1 },
-            config: { mass: 1, tension: 180, friction: 12 },
-        });
+        await scaleApi.start({ to: { scale: 1.1 }, config: { mass: 1, tension: 180, friction: 12 } });
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        await scaleApi.start({ to: { scale: 1 }, config: { mass: 1, tension: 180, friction: 12 } });
     };
 
     useFrame((state) => {
@@ -61,8 +55,7 @@ export const AnimatedSphere = () => {
             scale={scale}
         >
             <sphereGeometry args={[2, 128, 128]} />
-            {/* @ts-expect-error The component is defined using extend */}
             <energyMaterial ref={materialRef} />
         </a.mesh>
     );
-}; 
+}); 
