@@ -1,14 +1,15 @@
 import './App.css'
 import MagicBall from './components/magic-ball/MagicBall'
-import NavMenu from './components/navbar/NavMenu'
 import { observer } from "mobx-react"
+import { TopBar } from './components/header/TopBar';
 
 const App = observer(() => {
     return (
-        <div className='flex flex-col h-screen items-center justify-between bg-[#3A3939]'>
-            <h1>ASK THE ORB</h1>
-            <MagicBall width={220} height={220} />
-            <NavMenu />
+        <div className='flex flex-col h-screen bg-[#3A3939]'>
+            <TopBar />
+            <div className='flex-1 flex items-center justify-center'>
+                <MagicBall width={220} height={220} />
+            </div>
         </div>
     )
 })
