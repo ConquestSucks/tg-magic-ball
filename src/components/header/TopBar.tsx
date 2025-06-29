@@ -1,5 +1,5 @@
 import { useLaunchParams } from '@telegram-apps/sdk-react'
-import { User as UserIcon } from 'lucide-react'
+import { User as UserIcon, History } from 'lucide-react'
 import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from '@/components/ui/select'
@@ -24,8 +24,18 @@ export const TopBar = () => {
 
     return (
         <div className='w-full flex items-center justify-between px-4 py-2'>
-            <div className='w-8'></div>
-            <h1 className='text-white font-bold'>ASK THE ORB</h1>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <History className='w-6 h-6 text-white cursor-pointer' />
+                </DialogTrigger>
+                <DialogContent showCloseButton>
+                    <h2 className='text-lg font-semibold text-center mb-4'>История</h2>
+                    <p className='text-center text-muted-foreground'>История пуста</p>
+                </DialogContent>
+            </Dialog>
+
+            <h1 className='text-white font-bold flex-1 text-center'>ASK THE ORB</h1>
+
             <Dialog>
                 <DialogTrigger asChild>{Avatar}</DialogTrigger>
                 <DialogContent showCloseButton>
