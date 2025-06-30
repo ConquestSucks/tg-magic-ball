@@ -1,6 +1,6 @@
-import { useLaunchParams } from '@telegram-apps/sdk-react'
+import { useSafeLaunchParams as useLaunchParams } from '@/hooks/useSafeLaunchParams'
 import { User as UserIcon, History } from 'lucide-react'
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from '@/components/ui/select'
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
@@ -29,7 +29,8 @@ export const TopBar = () => {
                     <History className='w-6 h-6 text-white cursor-pointer' />
                 </DialogTrigger>
                 <DialogContent showCloseButton>
-                    <h2 className='text-lg font-semibold text-center mb-4'>История</h2>
+                    <DialogTitle className='text-lg font-semibold text-center mb-4'>История</DialogTitle>
+                    <DialogDescription>Здесь будет отображаться история ваших вопросов.</DialogDescription>
                     <p className='text-center text-muted-foreground'>История пуста</p>
                 </DialogContent>
             </Dialog>
@@ -39,7 +40,8 @@ export const TopBar = () => {
             <Dialog>
                 <DialogTrigger asChild>{Avatar}</DialogTrigger>
                 <DialogContent showCloseButton>
-                    <h2 className='text-lg font-semibold text-center mb-4'>Профиль</h2>
+                    <DialogTitle className='text-lg font-semibold text-center mb-4'>Профиль</DialogTitle>
+                    <DialogDescription>Здесь вы можете изменить свои данные профиля.</DialogDescription>
                     <div className='flex flex-col gap-4'>
                         <Input value={name} onChange={e => setName(e.target.value)} placeholder='Имя' />
                         <Select value={sex} onValueChange={setSex}>
