@@ -8,7 +8,7 @@ interface TgWebAppData {
     auth_date: Date;
     hash: string;
     signature: string;
-    user?: User;
+    user: User;
 }
 
 interface LaunchParams {
