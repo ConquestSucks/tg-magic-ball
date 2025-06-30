@@ -1,48 +1,51 @@
-import { useState, useEffect } from 'react';
-
 interface User {
-  first_name: string;
-  photo_url: string;
+    id: number;
+    first_name: string;
+    photo_url: string;
+}
+
+interface TgWebAppData {
+    auth_date: Date;
+    hash: string;
+    signature: string;
+    user?: User;
 }
 
 interface LaunchParams {
-  tgWebAppData: {
-    user?: User;
-  };
+    tgWebAppPlatform: string;
+    tgWebAppThemeParams: object;
+    tgWebAppVersion: string;
+    tgWebAppData: TgWebAppData;
 }
 
-export function useSafeLaunchParams(): LaunchParams | null {
-  const [params, setParams] = useState<LaunchParams | null>(null);
+const defaultUser: User = {
+    id: 0,
+    first_name: 'Гость',
+    photo_url: '',
+};
 
-  useEffect(() => {
+export function useSafeLaunchParams(): LaunchParams {
     if (import.meta.env.MODE === 'development') {
-      setParams({
-        tgWebAppData: {
-          user: {
-            first_name: 'Dev',
-            photo_url: '',
-          },
-        },
-      });
-    } else {
-      import('@telegram-apps/sdk-react').then(mod => {
-        const sdkParams = mod.useLaunchParams?.();
-        if (sdkParams && sdkParams.tgWebAppData) {
-          const user = sdkParams.tgWebAppData.user;
-          setParams({
+        return {
+            tgWebAppPlatform: 'web',
+            tgWebAppThemeParams: {},
+            tgWebAppVersion: '1.0',
             tgWebAppData: {
-              user: user ? {
-                first_name: user.first_name ?? '',
-                photo_url: user.photo_url ?? '',
-              } : undefined,
+                auth_date: new Date(),
+                hash: '',
+                signature: '',
+                user: defaultUser,
             },
-          });
-        } else {
-          setParams({ tgWebAppData: {} });
-        }
-      });
+        };
+    } else {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const params = require('@telegram-apps/sdk-react').useLaunchParams();
+        return {
+            ...params,
+            tgWebAppData: {
+                ...params.tgWebAppData,
+                user: params.tgWebAppData && params.tgWebAppData.user ? params.tgWebAppData.user : defaultUser,
+            }
+        };
     }
-  }, []);
-
-  return params;
 } 
