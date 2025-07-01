@@ -1,3 +1,4 @@
+import { useSafeLaunchParams as useLaunchParams } from '@/hooks/useSafeLaunchParams'
 import { User as UserIcon, History } from 'lucide-react'
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -6,17 +7,18 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { useSafeLaunchParams } from '@/hooks/useSafeLaunchParams'
 
 export const TopBar = () => {
-    const params = useSafeLaunchParams();
-    const user = params.tgWebAppData.user;
+    const params = useLaunchParams()
+    const user = params?.tgWebAppData?.user
 
-    const Avatar = user.photo_url
-        ? <img src={user.photo_url} className='w-8 h-8 rounded-full' />
-        : <UserIcon className='w-6 h-6 text-white' />;
+    const Avatar = user?.photo_url ? (
+        <img src={user.photo_url} className='w-8 h-8 rounded-full' />
+    ) : (
+        <UserIcon className='w-6 h-6 text-white' />
+    )
 
-    const [name, setName] = useState(user.first_name)
+    const [name, setName] = useState(user?.first_name ?? '')
     const [sex, setSex] = useState<string>()
     const [date, setDate] = useState<Date>()
 

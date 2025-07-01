@@ -1,51 +1,48 @@
-interface User {
-    id: number;
-    first_name: string;
-    photo_url: string;
-}
+import { useState, useEffect } from 'react';
 
-interface TgWebAppData {
-    auth_date: Date;
-    hash: string;
-    signature: string;
-    user?: User;
+interface User {
+  first_name: string;
+  photo_url: string;
 }
 
 interface LaunchParams {
-    tgWebAppPlatform: string;
-    tgWebAppThemeParams: object;
-    tgWebAppVersion: string;
-    tgWebAppData: TgWebAppData;
+  tgWebAppData: {
+    user?: User;
+  };
 }
 
-const defaultUser: User = {
-    id: 0,
-    first_name: 'Гость',
-    photo_url: '',
-};
+export function useSafeLaunchParams(): LaunchParams | null {
+  const [params, setParams] = useState<LaunchParams | null>(null);
 
-export function useSafeLaunchParams(): LaunchParams {
+  useEffect(() => {
     if (import.meta.env.MODE === 'development') {
-        return {
-            tgWebAppPlatform: 'web',
-            tgWebAppThemeParams: {},
-            tgWebAppVersion: '1.0',
-            tgWebAppData: {
-                auth_date: new Date(),
-                hash: '',
-                signature: '',
-                user: defaultUser,
-            },
-        };
+      setParams({
+        tgWebAppData: {
+          user: {
+            first_name: 'Dev',
+            photo_url: '',
+          },
+        },
+      });
     } else {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const params = require('@telegram-apps/sdk-react').useLaunchParams();
-        return {
-            ...params,
+      import('@telegram-apps/sdk-react').then(mod => {
+        const sdkParams = mod.useLaunchParams?.();
+        if (sdkParams && sdkParams.tgWebAppData) {
+          const user = sdkParams.tgWebAppData.user;
+          setParams({
             tgWebAppData: {
-                ...params.tgWebAppData,
-                user: params.tgWebAppData && params.tgWebAppData.user ? params.tgWebAppData.user : defaultUser,
-            }
-        };
+              user: user ? {
+                first_name: user.first_name ?? '',
+                photo_url: user.photo_url ?? '',
+              } : undefined,
+            },
+          });
+        } else {
+          setParams({ tgWebAppData: {} });
+        }
+      });
     }
+  }, []);
+
+  return params;
 } 
