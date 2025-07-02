@@ -5,7 +5,7 @@ import { TopBar } from './components/header/TopBar';
 
 const App = observer(() => {
     return (
-        <div className='flex flex-col h-screen bg-[#578FCA]'>
+        <div className='flex flex-col h-screen bg-linear-to-t from-sky-500 to-indigo-500'>
             <TopBar />
             <div className='flex-1 flex items-center justify-center'>
                 <MagicBall width={220} height={220} />

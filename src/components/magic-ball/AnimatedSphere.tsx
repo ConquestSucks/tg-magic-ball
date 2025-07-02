@@ -11,7 +11,7 @@ export const AnimatedSphere = observer(() => {
     const meshRef = useRef<Mesh>(null!);
     const materialRef = useRef<EnergyMaterialImpl>(null!);
     const [hovered, setHover] = useState(false);
-    
+
 
     const [{ clickStrength }, clickApi] = useSpring(() => ({ clickStrength: 0 }));
     const [{ scale }, scaleApi] = useSpring(() => ({ scale: 1 }));
@@ -33,7 +33,7 @@ export const AnimatedSphere = observer(() => {
             materialRef.current.u_time = state.clock.getElapsedTime();
         }
     });
-    
+
     const { hoverValue } = useSpring({
         hoverValue: hovered ? 1 : 0,
         config: { duration: 300 }

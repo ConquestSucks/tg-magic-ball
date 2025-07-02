@@ -1,19 +1,16 @@
 import { useLaunchParams } from '@telegram-apps/sdk-react'
-import { User as UserIcon, History } from 'lucide-react'
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from '@/components/ui/select'
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
-import { Button } from '@/components/ui/button'
+import { retrieveRawLaunchParams } from '@telegram-apps/sdk';
+import { User as UserIcon } from 'lucide-react'
 import { useState } from 'react'
+import { HistoryDialog } from './HistoryDialog'
+import { ProfileDialog } from './ProfileDialog'
 
 export const TopBar = () => {
     const params = useLaunchParams()
     const user = params?.tgWebAppData?.user
-
+    console.log(retrieveRawLaunchParams())
     const Avatar = user?.photo_url ? (
-        <img src={user.photo_url} className='w-8 h-8 rounded-full' />
+        <img src={user.photo_url} className='w-8 h-8 rounded-full active:border border-solid' />
     ) : (
         <UserIcon className='w-6 h-6 text-white' />
     )
@@ -24,49 +21,19 @@ export const TopBar = () => {
 
     return (
         <div className='w-full flex items-center justify-between px-4 py-2'>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <History className='w-6 h-6 text-white cursor-pointer' />
-                </DialogTrigger>
-                <DialogContent showCloseButton>
-                    <h2 className='text-lg font-semibold text-center mb-4'>История</h2>
-                    <p className='text-center text-muted-foreground'>История пуста</p>
-                </DialogContent>
-            </Dialog>
+            <HistoryDialog />
 
             <h1 className='text-white font-bold flex-1 text-center'>ASK THE ORB</h1>
 
-            <Dialog>
-                <DialogTrigger asChild>{Avatar}</DialogTrigger>
-                <DialogContent showCloseButton>
-                    <h2 className='text-lg font-semibold text-center mb-4'>Профиль</h2>
-                    <div className='flex flex-col gap-4'>
-                        <Input value={name} onChange={e => setName(e.target.value)} placeholder='Имя' />
-                        <Select value={sex} onValueChange={setSex}>
-                            <SelectTrigger className='w-full'>
-                                <SelectValue placeholder='Укажите пол' />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    <SelectItem value='male'>Мужчина</SelectItem>
-                                    <SelectItem value='female'>Женщина</SelectItem>
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button variant='outline' className='w-full justify-between'>
-                                    {date ? date.toLocaleDateString() : 'Укажите дату рождения'}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className='w-auto p-0' align='start'>
-                                <Calendar mode='single' selected={date} captionLayout='dropdown' onSelect={setDate} />
-                            </PopoverContent>
-                        </Popover>
-                        <Button disabled={!name || !sex || !date}>Сохранить</Button>
-                    </div>
-                </DialogContent>
-            </Dialog>
+            <ProfileDialog
+                avatar={Avatar}
+                name={name}
+                setName={setName}
+                sex={sex}
+                setSex={setSex}
+                date={date}
+                setDate={setDate}
+            />
         </div>
     )
 } 
