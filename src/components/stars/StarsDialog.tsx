@@ -1,8 +1,8 @@
-import { invoiceLink } from "@/lib/api";
+
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog"
 import StarsItem from "./StarsItem"
-import { invoice } from "@telegram-apps/sdk-react";
+
 
 interface StarsItem {
     count: number;
@@ -17,9 +17,9 @@ export const StarsDialog = () => {
     ]
 
     const handleBuy = async () => {
-    const linkObject = await invoiceLink()
+   /*  const linkObject = await invoiceLink()
 
-    const promise = await invoice.open(linkObject.data.link)
+    const promise = await invoice.open(linkObject.data.link) */
 
 };
 
