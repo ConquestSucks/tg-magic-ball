@@ -4,7 +4,7 @@ import { observer } from "mobx-react"
 import { TopBar } from './components/header/TopBar';
 import { useEffect } from 'react';
 import { initData } from './lib/api';
-import { useRawLaunchParams } from '@telegram-apps/sdk-react';
+import { useRawLaunchParams, useRawInitData } from '@telegram-apps/sdk-react';
 import { userStorage } from './store/userStorage';
 
 const App = observer(() => {
@@ -20,6 +20,8 @@ const App = observer(() => {
         }
 
         storeUserData()
+
+        console.log(useRawInitData());
     },[tgData])
 
     return (

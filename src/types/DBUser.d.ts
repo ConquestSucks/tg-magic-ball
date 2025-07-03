@@ -1,6 +1,6 @@
 export interface DBUser {
     _id: string,
-    telegramId: 963775712,
+    telegramId: number,
     firstName: string,
     username: string,
     createdAt: string,
