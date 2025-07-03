@@ -4,17 +4,17 @@ import { observer } from "mobx-react"
 import { TopBar } from './components/header/TopBar';
 import { useEffect } from 'react';
 import { initData } from './lib/api';
-import { useRawLaunchParams } from '@telegram-apps/sdk-react';
+import { useRawInitData } from '@telegram-apps/sdk-react';
 import { userStorage } from './store/userStorage';
 
 const App = observer(() => {
-    const tgData = useRawLaunchParams()
-    userStorage.setRawData(tgData)
+    const tgData = useRawInitData()
+    if (tgData) userStorage.setRawData(tgData)
     const user = userStorage.telegramUser;
 
     useEffect(() => {
         const storeUserData = async() => {
-            const serverResponse = (await initData(userStorage.rawDataAsHeader)).data
+            const serverResponse = (await initData(userStorage.rawData)).data
             userStorage.setTelegramUser(serverResponse.telegramUser)
             userStorage.setUser(serverResponse.user)
         }

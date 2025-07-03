@@ -19,10 +19,6 @@ class UserStorage {
         return this._rawData
     }
 
-    get rawDataAsHeader() {
-        return this._rawData.replace("tgWebAppData=", "")
-    }
-
     setUser(user: DBUser) {
         this._user = user
     }
