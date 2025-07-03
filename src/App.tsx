@@ -4,17 +4,23 @@ import { observer } from "mobx-react"
 import { TopBar } from './components/header/TopBar';
 import { useEffect } from 'react';
 import { initData } from './lib/api';
-import { useRawLaunchParams, parseLaunchParamsQuery } from '@telegram-apps/sdk-react';
+import { useRawLaunchParams } from '@telegram-apps/sdk-react';
 import { userStorage } from './store/userStorage';
 
 const App = observer(() => {
     const tgData = useRawLaunchParams()
     userStorage.setRawData(tgData)
-    const user = parseLaunchParamsQuery(userStorage.rawData).tgWebAppData?.user
+    const user = userStorage.telegramUser;
 
     useEffect(() => {
-        initData(userStorage.rawDataAsHeader)
-    })
+        const storeUserData = async() => {
+            const serverResponse = (await initData(userStorage.rawDataAsHeader)).data
+            userStorage.setTelegramUser(serverResponse.telegramUser)
+            userStorage.setUser(serverResponse.user)
+        }
+
+        storeUserData()
+    },[tgData])
 
     return (
         <div className='flex flex-col h-screen bg-linear-to-t from-sky-500 to-indigo-500'>
