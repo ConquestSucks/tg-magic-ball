@@ -1,3 +1,6 @@
+import type { DBUser } from "./DBUser";
+import type { TelegramUser } from "./telegramUser";
+
 export interface AskOrbResponse {
     success: boolean;
     data?: {
@@ -10,4 +13,10 @@ export interface AskOrbResponse {
         };
         limitReached: boolean;
     };
+}
+
+export interface InitDataResponse {
+    success: boolean,
+    user: DBUser,
+    telegramUser: TelegramUser
 }
