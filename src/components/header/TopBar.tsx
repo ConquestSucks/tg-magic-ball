@@ -1,14 +1,14 @@
-import { useLaunchParams } from '@telegram-apps/sdk-react'
-import { retrieveRawLaunchParams } from '@telegram-apps/sdk';
+import { type User } from '@telegram-apps/sdk-react'
 import { User as UserIcon } from 'lucide-react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { HistoryDialog } from './HistoryDialog'
 import { ProfileDialog } from './ProfileDialog'
 
-export const TopBar = () => {
-    const params = useLaunchParams()
-    const user = params?.tgWebAppData?.user
-    console.log(retrieveRawLaunchParams())
+interface TopBarProps {
+    user?: User
+}
+
+export const TopBar: React.FC<TopBarProps> = ({ user }) => {
     const Avatar = user?.photo_url ? (
         <img src={user.photo_url} className='w-8 h-8 rounded-full active:border border-solid' />
     ) : (

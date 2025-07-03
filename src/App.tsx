@@ -2,11 +2,23 @@ import './App.css'
 import MagicBall from './components/magic-ball/MagicBall'
 import { observer } from "mobx-react"
 import { TopBar } from './components/header/TopBar';
+import { useEffect } from 'react';
+import { initData } from './lib/api';
+import { useRawLaunchParams, parseLaunchParamsQuery } from '@telegram-apps/sdk-react';
+import { userStorage } from './store/userStorage';
 
 const App = observer(() => {
+    const tgData = useRawLaunchParams()
+    userStorage.setRawData(tgData)
+    const user = parseLaunchParamsQuery(userStorage.rawData).tgWebAppData?.user
+
+    useEffect(() => {
+        initData(userStorage.rawDataAsHeader)
+    })
+
     return (
         <div className='flex flex-col h-screen bg-linear-to-t from-sky-500 to-indigo-500'>
-            <TopBar />
+            <TopBar user={user}/>
             <div className='flex-1 flex items-center justify-center'>
                 <MagicBall width={220} height={220} />
             </div>
