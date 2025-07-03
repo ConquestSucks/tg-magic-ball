@@ -11,7 +11,7 @@ export function useMagicBallAnswer() {
         setLoading(true);
         setError('');
         try {
-            const { data } = await askOrb(question.trim(), userStorage.rawDataAsHeader);
+            const { data } = await askOrb(question.trim(), userStorage.rawData);
             if (data?.success && data.data?.answer) {
                 setAnswer(data.data.answer);
             } else {

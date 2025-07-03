@@ -41,7 +41,7 @@ const MagicBallComponent: React.FC<MagicBallProps> = ({ width = '100%', height =
         setAnswer('Думаю...');
         await getAnswer(question);
 
-        const serverResponse = (await initData(userStorage.rawDataAsHeader)).data
+        const serverResponse = (await initData(userStorage.rawData)).data
         userStorage.setTelegramUser(serverResponse.telegramUser)
         userStorage.setUser(serverResponse.user)
         chatStorage.setQuestionLimit(userStorage.user?.dailyLimit)
