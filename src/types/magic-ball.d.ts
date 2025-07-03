@@ -20,5 +20,5 @@ export interface QuestionFormProps {
 }
 
 export interface QuestionsLimitProps {
-  questionsLeft: number;
+  questionsLeft: number | undefined;
 } 

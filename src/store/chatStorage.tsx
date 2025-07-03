@@ -2,8 +2,8 @@ import { makeAutoObservable } from "mobx"
 
 class ChatStorage {
     private _isOpen: boolean = false;
-    questionLimit = 5; // максимальный лимит
-    questionsLeft = 5; // сколько осталось
+    private _questionLimit: number | undefined;
+    private _questionsToday: number | undefined; 
 
     constructor() {
         makeAutoObservable(this)
@@ -17,14 +17,27 @@ class ChatStorage {
         return this._isOpen
     }
 
-    decrementQuestions() {
-        if (this.questionsLeft > 0) {
-            this.questionsLeft--;
-        }
+    setQuestionLimit(limit: number | undefined) {
+        this._questionLimit = limit
     }
 
-    resetQuestions() {
-        this.questionsLeft = this.questionLimit;
+    get questionLimit() {
+        return this._questionLimit
+    }
+
+    setQuestionsToday(questionsToday: number | undefined) {
+        this._questionsToday = questionsToday
+    }
+
+    get questionsToday() {
+        return this._questionsToday
+    }
+
+    get questionsLeft() {
+        if (this._questionLimit && this._questionsToday) 
+            return this._questionLimit - this._questionsToday
+
+        return undefined
     }
 }
 
