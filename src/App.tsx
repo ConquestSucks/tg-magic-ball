@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { initData } from './lib/api';
 import { useRawInitData } from '@telegram-apps/sdk-react';
 import { userStorage } from './store/userStorage';
+import { chatStorage } from './store/chatStorage';
 
 const App = observer(() => {
     const tgData = useRawInitData()
@@ -17,6 +18,8 @@ const App = observer(() => {
             const serverResponse = (await initData(userStorage.rawData)).data
             userStorage.setTelegramUser(serverResponse.telegramUser)
             userStorage.setUser(serverResponse.user)
+            chatStorage.setQuestionLimit(userStorage.user?.dailyLimit)
+            chatStorage.setQuestionsToday(userStorage.user?.requestsToday)
         }
 
         storeUserData()

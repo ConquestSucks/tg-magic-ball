@@ -34,10 +34,10 @@ class ChatStorage {
     }
 
     get questionsLeft() {
-        if (this._questionLimit && this._questionsToday) 
-            return this._questionLimit - this._questionsToday
+        if (this._questionLimit === undefined || this._questionsToday === undefined) return undefined;
+        if (this._questionLimit < 0 || this._questionsToday < 0) return undefined;
 
-        return undefined
+        return this._questionLimit - this._questionsToday
     }
 }
 

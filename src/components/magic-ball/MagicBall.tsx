@@ -36,7 +36,7 @@ const MagicBallComponent: React.FC<MagicBallProps> = ({ width = '100%', height =
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!question.trim()) return;
-        if (chatStorage.questionsLeft) return;
+        if (!chatStorage.questionsLeft) return;
         setShowInput(false);
         setAnswer('Думаю...');
         await getAnswer(question);

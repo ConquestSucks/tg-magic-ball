@@ -10,5 +10,4 @@ export interface DBUser {
     isPremium: boolean,
     banned: boolean,
     lastRequestAt: string
-
 }
