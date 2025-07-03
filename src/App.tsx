@@ -21,7 +21,6 @@ const App = observer(() => {
 
         storeUserData()
 
-        console.log("TEST")
         console.log(useRawInitData());
     },[tgData])
 
