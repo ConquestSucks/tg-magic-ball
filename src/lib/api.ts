@@ -1,13 +1,13 @@
-import type { AskOrbResponse } from '@/types/response';
+import type { AskOrbResponse, InitDataResponse } from '@/types/response';
 import axios, { type AxiosResponse } from 'axios';
 
 const baseURL = import.meta.env.VITE_API_URL ?? 'https://api.ask-the-orb.ghjc.ru/api/telegram/';
 
 export const apiClient = axios.create({ baseURL, withCredentials: true, headers: { 'Content-Type': 'application/json', } });
 
-export const initData = async (rawParams: string) => {
+export const initData = async (rawParams: string): Promise<AxiosResponse<InitDataResponse>> => {
     try {
-        await apiClient.get(
+        const reponse = await apiClient.get(
             '/me',
             {
                 headers: {
@@ -15,8 +15,10 @@ export const initData = async (rawParams: string) => {
                 }
             },
         );
+        return reponse
     } catch (error) {
         console.log(error)
+        throw error
     }
 };
 
