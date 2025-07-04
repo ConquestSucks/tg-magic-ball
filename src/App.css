@@ -6,6 +6,11 @@
   height: 100vh;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 
 h1 {
   font-weight: 900;

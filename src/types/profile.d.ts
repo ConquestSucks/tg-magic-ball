@@ -8,7 +8,7 @@ export interface ProfileFormProps {
 }
 
 export interface ProfileDialogProps {
-  avatar: React.ReactNode;
+  user?: TelegramUser ;
   name: string;
   setName: (name: string) => void;
   sex?: string;
@@ -16,3 +16,7 @@ export interface ProfileDialogProps {
   date?: Date;
   setDate: (date?: Date) => void;
 } 
+
+interface AvatarProps {
+    user?: TelegramUser
+}

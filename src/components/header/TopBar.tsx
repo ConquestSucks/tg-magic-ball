@@ -1,32 +1,25 @@
-import { type User } from '@telegram-apps/sdk-react'
-import { User as UserIcon } from 'lucide-react'
+
 import React, { useState } from 'react'
-import { HistoryDialog } from './HistoryDialog'
-import { ProfileDialog } from './ProfileDialog'
+import { HistoryDialog } from './history/HistoryDialog'
+import { ProfileDialog } from './profile/ProfileDialog'
+import type { TelegramUser } from '@/types/telegramUser'
 
 interface TopBarProps {
-    user?: User
+    user?: TelegramUser 
 }
 
 export const TopBar: React.FC<TopBarProps> = ({ user }) => {
-    const Avatar = user?.photo_url ? (
-        <img src={user.photo_url} className='w-8 h-8 rounded-full active:border border-solid' />
-    ) : (
-        <UserIcon className='w-6 h-6 text-white' />
-    )
-
     const [name, setName] = useState(user?.first_name ?? '')
     const [sex, setSex] = useState<string>()
     const [date, setDate] = useState<Date>()
-
     return (
-        <div className='w-full flex items-center justify-between px-4 py-2'>
-            <HistoryDialog />
+        <div className='w-full flex items-center justify-between px-4 py-2 select-none'>
+            <HistoryDialog history={[]}/>
 
             <h1 className='text-white font-bold flex-1 text-center'>ASK THE ORB</h1>
 
             <ProfileDialog
-                avatar={Avatar}
+                user={user}
                 name={name}
                 setName={setName}
                 sex={sex}

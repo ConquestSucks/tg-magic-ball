@@ -4,7 +4,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectI
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
-import type { ProfileFormProps } from '../../types/profile';
+import type { ProfileFormProps } from '../../../types/profile';
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({ name, setName, sex, setSex, date, setDate }) => (
     <div className='flex flex-col gap-4'>
